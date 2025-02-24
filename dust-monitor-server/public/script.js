@@ -1,42 +1,34 @@
-const ctx = document.getElementById('dustChart').getContext('2d');
-const dustChart = new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: [], // Thời gian
-    datasets: [{
-      label: 'Dust Density (µg/m³)',
-      data: [], // Dữ liệu nồng độ bụi
-      borderColor: 'rgba(75, 192, 192, 1)',
-      borderWidth: 1
-    }]
-  },
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    }
-  }
-});
 
-// Hàm cập nhật dữ liệu
-async function updateData() {
-  const response = await fetch('/api/dust');
-  const data = await response.json();
+var map = L.map("map").setView([21.0285, 105.8542], 6); // Tọa độ mặc định (Hà Nội)
+const elementMap = document.getElementById('map')
+console.log(elementMap);
+ // Thêm bản đồ nền từ OpenStreetMap
+ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+     attribution: "© OpenStreetMap contributors"
+ }).addTo(map);
+var sensors = { id: 1,dobui: 28, }
+ // Kiểm tra nếu trình duyệt hỗ trợ Geolocation API
+ if ("geolocation" in navigator) {
+     navigator.geolocation.getCurrentPosition(
+         function(position) {
+             let lat = position.coords.latitude;
+             let lng = position.coords.longitude;
 
-  // Cập nhật nhãn và dữ liệu
-  dustChart.data.labels = data.map(entry => new Date(entry.timestamp).toLocaleTimeString());
-  dustChart.data.datasets[0].data = data.map(entry => entry.dust_density);
+             // Hiển thị vị trí của thiết bị lên bản đồ
+             let marker = L.marker([lat, lng]).addTo(map)
+                 .bindPopup(`
+                    <b>Vị trí hiện tại:</b><br>Latitude: ${lat}<br>Longitude: ${lng}<br>
+                    <b>Độ bụi: ${sensors.dobui}<br>
+                `)
+                 .openPopup();
 
-  // Giới hạn số lượng mốc thời gian hiển thị
-  if (dustChart.data.labels.length > 10) {
-    dustChart.data.labels = dustChart.data.labels.slice(-10); // Giữ lại 10 giá trị cuối cùng
-    dustChart.data.datasets[0].data = dustChart.data.datasets[0].data.slice(-10);
-  }
-
-  // Cập nhật biểu đồ
-  dustChart.update();
+             // Di chuyển bản đồ đến vị trí hiện tại
+             map.setView([lat, lng], 14);
+         },
+         function(error) {
+             console.error("Lỗi khi lấy vị trí:", error.message);
+         }
+     );
+ } else {
+     alert("Trình duyệt của bạn không hỗ trợ Geolocation API");
 }
-
-// Cập nhật dữ liệu mỗi 5 giây
-setInterval(updateData, 5000);
