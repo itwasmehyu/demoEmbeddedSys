@@ -1,20 +1,104 @@
+/* Tổng thể */
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 0;
-    padding: 20px;
-    background-color: #f4f4f4;
-  }
-  
-  h1 {
-    color: #333;
-  }
-  
-  canvas {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+  font-family: 'Poppins', Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+  background: linear-gradient(135deg, #03645c, #046c81); /* Màu nền (or #74b9ff, #a29bfe )*/
+  color: #333;
+  transition: background 0.5s;
+}
+
+h1 {
+  color: #fff;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Biểu đồ */
+canvas {
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: #fff;
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  transition: transform 0.3s;
+}
+
+canvas:hover {
+  transform: scale(1.05);
+}
+
+/* Ô hiển thị giá trị bụi */
+#dustValueBox {
+  display: inline-block;
+  padding: 15px 30px;
+  margin: 20px auto;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+  background-color: #e0f7fa;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+#dustValueBox:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Icon cảnh báo */
+#warningIcon {
+  display: none;
+  font-size: 2.5rem;
+  color: #e74c3c;
+  animation: blink 1s infinite alternate;
+  margin-top: 10px;
+}
+
+/* Hiệu ứng nhấp nháy */
+@keyframes blink {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0.6; transform: scale(1.1); }
+}
+
+/* Hiển thị cảnh báo */
+.high-alert #warningIcon {
+  display: inline-block;
+}
+
+.high-alert #dustValueBox {
+  background-color: #ffcccc;
+  color: #e74c3c;
+}
+
+/* Nút bấm (nếu cần thêm vào) */
+button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #6c5ce7;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  background-color: #a29bfe;
+  transform: translateY(-3px);
+}
+
+/* Phần chân trang */
+footer {
+  margin-top: 30px;
+  color: #fff;
+  font-size: 0.9rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}

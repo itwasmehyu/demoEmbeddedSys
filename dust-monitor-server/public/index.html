@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -12,5 +12,61 @@
   <canvas id="dustChart" width="400" height="200"></canvas>
 
   <script src="script.js"></script>
+</body>
+</html>
+ -->
+
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PM2.5 Dust Monitor</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Thiết kế ô hiển thị giá trị bụi */
+        .value-box {
+            border: 2px solid #009688;
+            border-radius: 8px;
+            padding: 10px;
+            width: 200px;
+            margin: 20px auto;
+            background-color: #e0f7fa;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        /* Icon cảnh báo nhấp nháy */
+        #warningIcon {
+            display: none;
+            color: red;
+            font-size: 1.5em;
+            animation: blink 1s infinite alternate;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <h1>PM2.5 Dust Monitor</h1>
+    
+    <!-- Biểu đồ nồng độ bụi -->
+    <canvas id="dustChart" width="400" height="200"></canvas>
+
+    <!-- Ô hiển thị giá trị nồng độ bụi và cảnh báo -->
+    <div class="value-box">
+        <span id="dustValueBox">0 µg/m³</span>
+        <span id="warningIcon">⚠️</span>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
